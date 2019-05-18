@@ -32,12 +32,25 @@ public class BordersController {
 	@FXML
 	void doCalcolaConfini(ActionEvent event) {
 
-		txtResult.setText("Todo!");
+		try {
+	    	int anno = Integer.parseInt(txtAnno.getText());
+	    	model.creaGrafo(anno);
+	    	txtResult.setText("Elenco dei vertici con grado:\n"+model.elencoVertici()+"\nNumero di componenti connesse: "+model.componentiConnesse());
+	    	}catch(NumberFormatException e) {
+	    		txtResult.setText("Inserire un numero");
+	    		System.err.println("Inserire un numero");
+	    	}
+
 	}
 
 	@FXML // This method is called by the FXMLLoader when initialization is complete
 	void initialize() {
 		assert txtAnno != null : "fx:id=\"txtAnno\" was not injected: check your FXML file 'Borders.fxml'.";
 		assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'Borders.fxml'.";
+	}
+
+	public void setModel(Model model) {
+		this.model = model;
+		
 	}
 }
